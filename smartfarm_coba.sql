@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2021 at 04:28 PM
+-- Generation Time: Oct 27, 2021 at 04:15 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.23
 
@@ -36,6 +36,27 @@ CREATE TABLE `admin` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `average`
+--
+
+CREATE TABLE `average` (
+  `id_average` bigint(20) UNSIGNED NOT NULL,
+  `id_kandang` bigint(20) UNSIGNED NOT NULL,
+  `id_ref_sensor` bigint(20) UNSIGNED NOT NULL,
+  `value` double NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `average`
+--
+
+INSERT INTO `average` (`id_average`, `id_kandang`, `id_ref_sensor`, `value`, `date`) VALUES
+(1, 2, 2, 0, '2021-10-27 12:13:45');
 
 -- --------------------------------------------------------
 
@@ -6287,6 +6308,14 @@ ALTER TABLE `admin`
   ADD UNIQUE KEY `admin_username_unique` (`username`);
 
 --
+-- Indexes for table `average`
+--
+ALTER TABLE `average`
+  ADD PRIMARY KEY (`id_average`),
+  ADD KEY `average_id_kandang_foreign` (`id_kandang`),
+  ADD KEY `average_id_ref_sensor_foreign` (`id_ref_sensor`);
+
+--
 -- Indexes for table `device`
 --
 ALTER TABLE `device`
@@ -6346,6 +6375,12 @@ ALTER TABLE `admin`
   MODIFY `id_admin` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `average`
+--
+ALTER TABLE `average`
+  MODIFY `id_average` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `device`
 --
 ALTER TABLE `device`
@@ -6390,6 +6425,13 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `average`
+--
+ALTER TABLE `average`
+  ADD CONSTRAINT `average_id_kandang_foreign` FOREIGN KEY (`id_kandang`) REFERENCES `kandang` (`id_kandang`),
+  ADD CONSTRAINT `average_id_ref_sensor_foreign` FOREIGN KEY (`id_ref_sensor`) REFERENCES `ref_sensor` (`id_ref_sensor`);
 
 --
 -- Constraints for table `device`

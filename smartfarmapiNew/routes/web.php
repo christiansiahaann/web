@@ -59,9 +59,11 @@ $router->group(
         $router->post('mykandang', 'KandangController@myKandang');
         $router->get('mysensor/{id_kandang}', 'SensorController@mySensor');
         $router->get('mysensor/{id_kandang}/{type_sensor}', 'SensorController@mySensorWithType');
-        
+        $router->get('average/{id_kandang}/{id_ref_sensor}', 'SensorController@getAverage');
     }
 );
 
 $router->post('record', 'RecordController@store');
 $router->post('register', 'UsersController2@store');
+
+
